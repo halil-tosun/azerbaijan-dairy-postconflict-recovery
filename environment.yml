@@ -1,0 +1,13 @@
+name: agri-systems-repro
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.11
+  - numpy>=1.26
+  - pandas>=2.2
+  - scipy>=1.11
+  - matplotlib>=3.8
+  - pip

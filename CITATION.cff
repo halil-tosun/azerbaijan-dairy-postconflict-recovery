@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+title: "Understanding Post-conflict Agricultural Systems Recovery: An Integrated Efficiency, Productivity and Policy Analysis of Azerbaijan's Dairy Sector"
+message: "If you use this replication package, please cite it using the metadata below."
+type: software
+authors:
+  - family-names: "Tosun"
+    given-names: "Halil"
+    orcid: "https://orcid.org/0000-0001-5117-0390"
+email: "halilibrahimtosun@gmail.com"
+repository-code: "https://github.com/REPLACE_WITH_USERNAME/post-conflict-agricultural-systems-recovery"
+license: "MIT"
