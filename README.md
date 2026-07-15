@@ -85,4 +85,4 @@ Email: halilibrahimtosun@gmail.com
 
 **Zenodo DOI:** To be assigned after public release.
 
-_Last updated: July 2026._
+_Last updated: July 15, 2026._
