@@ -1,88 +1,140 @@
-# Understanding Post-conflict Agricultural Systems Recovery
+# Understanding Post-conflict Agricultural Systems Recovery:
+## An Integrated Efficiency, Productivity and Policy Analysis of Azerbaijan's Dairy Sector
 
-## Open Science Replication Package
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21380280.svg)](https://doi.org/10.5281/zenodo.21380280)
 
-This repository contains the complete replication package accompanying the manuscript **"Understanding Post-conflict Agricultural Systems Recovery: An Integrated Efficiency, Productivity and Policy Analysis of Azerbaijan's Dairy Sector"** prepared for submission to **Agricultural Systems (Elsevier)**.
+## Replication Package
 
----
+This repository contains the complete computational replication package accompanying the manuscript:
 
-## Repository Overview
+> **Understanding Post-conflict Agricultural Systems Recovery: An Integrated Efficiency, Productivity and Policy Analysis of Azerbaijan's Dairy Sector**
 
-This repository follows open science and computational reproducibility principles and includes:
-
-- Complete Python source code
-- Raw and analytical datasets
-- Reproducible computational workflow
-- Comprehensive documentation
-- Software environment specifications
-- Replication guide
+The repository has been developed to ensure **full computational reproducibility**, **research transparency**, and compliance with **Open Science** best practices.
 
 ---
 
-## Repository Structure
+## Permanent Archive
 
-```text
-Azerbaijan_Dairy_Replication/
-├── code/
-├── data/
-├── docs/
-├── manuscript/
-├── output/
+The complete replication package is permanently archived on Zenodo:
+
+**https://doi.org/10.5281/zenodo.21380280**
+
+The archived version should be cited when referring to the replication package.
+
+---
+
+## Repository Contents
+
+```
+.
+├── code/                 Python source code
+├── data/                 Raw and processed datasets
+├── docs/                 Documentation
+├── manuscript/           Publication-related materials
+├── output/               Generated analytical outputs
 ├── README.md
-├── CHANGELOG.md
-├── CITATION.cff
 ├── LICENSE
+├── CITATION.cff
+├── CHANGELOG.md
 ├── requirements.txt
 ├── environment.yml
 └── .gitignore
 ```
 
+---
+
+## Included Materials
+
+The repository contains:
+
+- Python source code
+- Raw and processed datasets
+- Bootstrap DEA analysis
+- Stochastic Frontier Analysis (SFA)
+- Bootstrap Malmquist Productivity Index
+- Event-study analysis
+- Documentation
+- Replication Guide
+- Codebook
+- Computational workflow
+- Software environment specifications
+
+---
+
+## Computational Reproducibility
+
+The repository has been organized to facilitate complete computational reproducibility.
+
+Running the complete workflow reproduces all empirical analyses reported in the manuscript, including:
+
+- Technical efficiency estimates
+- Productivity decomposition
+- Event-study estimates
+- Regression analyses
+- Tables
+- Figures
+
+---
+
+## Software Requirements
+
+The computational environment is documented in:
+
+- `requirements.txt`
+- `environment.yml`
+
+These files allow users to recreate the software environment used in this study.
+
+---
+
 ## Documentation
 
-- **docs/CODEBOOK.md** – Analytical workflow and variable descriptions
-- **docs/DATA_DESCRIPTION.md** – Data sources and dataset structure
-- **docs/REPRODUCIBILITY_CHECKLIST.md** – Reproducibility checklist
-- **docs/Replication_Guide.docx** – Complete replication guide
+Additional documentation is available in the `docs/` directory, including:
 
-## Installation
+- Replication Guide
+- Codebook
+- Data Description
+- Reproducibility Checklist
 
-```bash
-conda env create -f environment.yml
-conda activate agri-systems-repro
-```
-
-or
-
-```bash
-pip install -r requirements.txt
-```
-
-## Run
-
-```bash
-python code/run_all.py
-```
-
-This reproduces the complete analytical workflow including data preparation, DEA, SFA, second-stage analysis, Malmquist productivity decomposition, event-study estimation, robustness analyses, and figure generation.
+---
 
 ## Citation
 
-Please cite both the published article and the archived GitHub/Zenodo repository. Citation metadata are provided in `CITATION.cff`.
+If you use this replication package, please cite the Zenodo archive:
+
+> Tosun, H. (2026). *Understanding Post-conflict Agricultural Systems Recovery: An Integrated Efficiency, Productivity and Policy Analysis of Azerbaijan's Dairy Sector – Replication Package*. Zenodo. https://doi.org/10.5281/zenodo.21380280
+
+---
 
 ## License
 
-MIT License.
+This project is released under the **MIT License**.
 
-## Contact
+See the `LICENSE` file for details.
+
+---
+
+## Author
 
 **Halil Tosun, Ph.D.**
 
-ORCID: https://orcid.org/0000-0001-5117-0390
+ORCID:
+https://orcid.org/0000-0001-5117-0390
 
-Email: halilibrahimtosun@gmail.com
+E-mail:
+halilibrahimtosun@gmail.com
 
-**Version:** 1.0.0
+GitHub:
+https://github.com/halil-tosun
 
-**Zenodo DOI:** To be assigned after public release.
+---
 
-_Last updated: July 15, 2026._
+## Journal
+
+This replication package accompanies the manuscript submitted to:
+
+**Agricultural Systems (Elsevier)**
+
+---
+
+© 2026 Halil Tosun
