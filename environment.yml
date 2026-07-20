@@ -1,4 +1,4 @@
-name: agri-systems-repro
+name: technical efficiency-repro
 
 channels:
   - conda-forge
