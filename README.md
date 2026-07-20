@@ -133,7 +133,7 @@ https://github.com/halil-tosun
 
 This replication package accompanies the manuscript submitted to:
 
-Agricultural Economists, IAAE (Wiley)
+Agricultural Economics, IAAE (Wiley)
 
 ---
 
