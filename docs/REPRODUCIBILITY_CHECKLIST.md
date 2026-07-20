@@ -1,7 +1,7 @@
 # REPRODUCIBILITY_CHECKLIST
 
 ## Study
-**Understanding Post-conflict Agricultural Systems Recovery: An Integrated Efficiency, Productivity and Policy Analysis of Azerbaijan's Dairy Sector**
+**Technical Efficiency, Productivity Growth, and the Effects of Territorial Reintegration: Evidence from Azerbaijan's Dairy Sector, 2000–2024**
 
 ---
 
@@ -46,4 +46,4 @@
 
 ## Transparency Statement
 
-This repository has been prepared to maximize computational reproducibility and long-term accessibility. After public release, the archived GitHub repository will be linked to Zenodo to obtain a permanent DOI.
+This repository has been prepared to maximize computational reproducibility and long-term accessibility. After public release, the archived GitHub repository is permanently archived on Zenodo and publicly available at https://doi.org/10.5281/zenodo.21380280.
