@@ -4,7 +4,7 @@
 
 This document describes the datasets included in the replication package for:
 
-**Understanding Post-conflict Agricultural Systems Recovery: An Integrated Efficiency, Productivity and Policy Analysis of Azerbaijan's Dairy Sector**
+**Technical Efficiency, Productivity Growth, and the Effects of Territorial Reintegration: Evidence from Azerbaijan's Dairy Sector, 2000–2024**
 
 Author: **Halil Tosun, Ph.D.**
 
