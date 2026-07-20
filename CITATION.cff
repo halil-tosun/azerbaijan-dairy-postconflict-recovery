@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 
-title: "Understanding Post-conflict Agricultural Systems Recovery: An Integrated Efficiency, Productivity and Policy Analysis of Azerbaijan's Dairy Sector – Replication Package"
+title: "Technical Efficiency, Productivity Growth, and the Effects of Territorial Reintegration: Evidence from Azerbaijan's Dairy Sector, 2000–2024 – Replication Package"
 
 message: "If you use this replication package, please cite it using the metadata below."
 
@@ -40,8 +40,8 @@ keywords:
 
 abstract: >
   Complete computational replication package accompanying the study
-  "Understanding Post-conflict Agricultural Systems Recovery:
-  An Integrated Efficiency, Productivity and Policy Analysis of Azerbaijan's Dairy Sector".
+  "Technical Efficiency, Productivity Growth, and the Effects of Territorial Reintegration: 
+  Evidence from Azerbaijan's Dairy Sector, 2000–2024".
   The repository contains datasets, Python source code,
   documentation, and computational workflow required to reproduce
   all empirical analyses.
