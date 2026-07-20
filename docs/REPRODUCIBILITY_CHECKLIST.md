@@ -25,7 +25,7 @@
 | Figures reproducible | ✓ |
 | Tables reproducible | ✓ |
 | Open repository planned | ✓ |
-| Zenodo DOI | ☐ Pending repository release |
+| Zenodo DOI | ✓ |
 
 ---
 
