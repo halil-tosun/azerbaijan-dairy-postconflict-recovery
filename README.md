@@ -1,5 +1,5 @@
-# Understanding Post-conflict Agricultural Systems Recovery:
-## An Integrated Efficiency, Productivity and Policy Analysis of Azerbaijan's Dairy Sector
+# Technical Efficiency, Productivity Growth, and the Effects of Territorial Reintegration: 
+## Evidence from Azerbaijan's Dairy Sector, 2000–2024
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21380280.svg)](https://doi.org/10.5281/zenodo.21380280)
 
@@ -7,7 +7,7 @@
 
 This repository contains the complete computational replication package accompanying the manuscript:
 
-> **Understanding Post-conflict Agricultural Systems Recovery: An Integrated Efficiency, Productivity and Policy Analysis of Azerbaijan's Dairy Sector**
+> **Technical Efficiency, Productivity Growth, and the Effects of Territorial Reintegration: Evidence from Azerbaijan's Dairy Sector, 2000–2024**
 
 The repository has been developed to ensure **full computational reproducibility**, **research transparency**, and compliance with **Open Science** best practices.
 
@@ -102,7 +102,7 @@ Additional documentation is available in the `docs/` directory, including:
 
 If you use this replication package, please cite the Zenodo archive:
 
-> Tosun, H. (2026). *Understanding Post-conflict Agricultural Systems Recovery: An Integrated Efficiency, Productivity and Policy Analysis of Azerbaijan's Dairy Sector – Replication Package*. Zenodo. https://doi.org/10.5281/zenodo.21380280
+> Tosun, H. (2026). *Technical Efficiency, Productivity Growth, and the Effects of Territorial Reintegration: Evidence from Azerbaijan's Dairy Sector, 2000–2024 – Replication Package*. Zenodo. https://doi.org/10.5281/zenodo.21380280
 
 ---
 
@@ -133,7 +133,7 @@ https://github.com/halil-tosun
 
 This replication package accompanies the manuscript submitted to:
 
-**Agricultural Systems (Elsevier)**
+Agricultural Economists, IAAE (Wiley)
 
 ---
 
