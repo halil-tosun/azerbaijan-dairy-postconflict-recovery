@@ -29,4 +29,5 @@ The format is inspired by *Keep a Changelog* and follows semantic versioning whe
 
 ### Notes
 The Zenodo DOI after the first public GitHub release:
-https://doi.org/10.5281/zenodo.21380280
+
+https://doi.org/10.5281/zenodo.21460850
