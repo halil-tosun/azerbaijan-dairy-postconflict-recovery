@@ -27,6 +27,8 @@
 | Open repository planned | ✓ |
 | Zenodo DOI | ✓ |
 
+https://doi.org/10.5281/zenodo.21460850
+
 ---
 
 ## Computational Environment
@@ -46,4 +48,8 @@
 
 ## Transparency Statement
 
-This repository has been prepared to maximize computational reproducibility and long-term accessibility. After public release, the archived GitHub repository is permanently archived on Zenodo and publicly available at https://doi.org/10.5281/zenodo.21380280.
+This repository has been prepared to maximize computational reproducibility and long-term accessibility.
+
+After public release, the archived GitHub repository is permanently archived on Zenodo and publicly available at:
+
+https://doi.org/10.5281/zenodo.21460850.
