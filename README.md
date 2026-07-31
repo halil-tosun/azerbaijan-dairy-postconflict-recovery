@@ -1,7 +1,7 @@
 # Technical Efficiency, Productivity Growth, and the Effects of Territorial Reintegration: 
 ## Evidence from Azerbaijan's Dairy Sector, 2000–2024
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21460850.svg)](https://doi.org/10.5281/zenodo.21460850)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21380280.svg)](https://doi.org/10.5281/zenodo.21380280)
 
 ## Replication Package
 
@@ -17,7 +17,7 @@ The repository has been developed to ensure **full computational reproducibility
 
 The complete replication package is permanently archived on Zenodo:
 
-**https://doi.org/10.5281/zenodo.21460850**
+**https://doi.org/10.5281/zenodo.21380280**
 
 The archived version should be cited when referring to the replication package.
 
@@ -102,7 +102,7 @@ Additional documentation is available in the `docs/` directory, including:
 
 If you use this replication package, please cite the Zenodo archive:
 
-> Tosun, H. (2026). *Technical Efficiency, Productivity Growth, and the Effects of Territorial Reintegration: Evidence from Azerbaijan's Dairy Sector, 2000–2024 – Replication Package*. Zenodo. https://doi.org/10.5281/zenodo.21460850
+> Tosun, H. (2026). *Technical Efficiency, Productivity Growth, and the Effects of Territorial Reintegration: Evidence from Azerbaijan's Dairy Sector, 2000–2024 – Replication Package*. Zenodo. https://doi.org/10.5281/zenodo.21380280
 
 ---
 
