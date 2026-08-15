@@ -1,0 +1,36 @@
+{
+  "title": "Reproducibility Package: Technical Efficiency, Productivity Growth, and Post-Conflict Recovery: The Fragility of Causal Claims in Azerbaijan's Dairy Sector, 2000-2024",
+  "description": "<p>Complete reproducibility package for a study estimating technical efficiency, decomposing productivity growth, and evaluating the effect of Azerbaijan's post-2020 territorial reintegration on dairy-sector technical efficiency, using a district-level panel (67 districts, 2000-2024). Includes:</p><ul><li>Python source code reproducing the full pipeline: bootstrap Data Envelopment Analysis (DEA), Stochastic Frontier Analysis (SFA), bootstrap Malmquist productivity decomposition, Simar-Wilson (2007) second-stage determinants regression, an interference-robust (control-only-frontier) event-study design with district-clustered standard errors and a fractional-logit specification, minimum-detectable-effect/power calculations, and four additional robustness analyses added following external methodological review (DEA-SFA rank correlation, a year-fixed-effects second-stage specification, control-frontier bootstrap/truncation diagnostics, and an Aghdara-exclusion plus wild-cluster-bootstrap check);</li><li>All source data, processing scripts, and analytical output tables reported in the manuscript and its Supporting Information;</li><li>All five manuscript figures and two Supporting Information figures;</li><li>Full documentation (codebook, data description, reproducibility checklist with an exact internal-consistency verification against the manuscript, and a step-by-step replication guide).</li></ul><p>The study's central finding is methodological as much as substantive: a naive difference-in-differences estimate of the reintegration effect, applied directly to pooled DEA efficiency scores, appears statistically significant, but does not survive two defensible corrections -- addressing mechanical interference through a control-only reference technology, and district-clustered standard errors -- once applied, the estimated effect is larger in magnitude but no longer statistically distinguishable from zero, and the design's own minimum detectable effect shows it lacks the power to confirm or rule out a plausible policy effect. Independently, productivity growth in this sector is shown to be driven predominantly by technological change rather than efficiency convergence, and districts with larger dairy herds are shown to be systematically less efficient despite mild increasing returns to scale.</p><p>This package is organized around the study itself rather than any single journal submission, so that it remains valid regardless of the eventual publication venue or manuscript title.</p>",
+  "creators": [
+    {
+      "name": "Tosun, Halil",
+      "affiliation": "ADA University, School of Agricultural and Food Sciences, Department of Animal Science, Baku, Azerbaijan",
+      "orcid": "0000-0001-5117-0390"
+    },
+    {
+      "name": "Vittuari, Matteo",
+      "affiliation": "University of Bologna, Department of Agricultural and Food Sciences (DISTAL), Italy; ADA University, School of Agricultural and Food Sciences, Baku, Azerbaijan"
+      "orcid": "0000-0003-4327-1575"
+    }
+  ],
+  "keywords": [
+    "technical efficiency",
+    "total factor productivity",
+    "data envelopment analysis",
+    "stochastic frontier analysis",
+    "Malmquist index",
+    "difference-in-differences",
+    "post-conflict recovery",
+    "food security",
+    "dairy sector",
+    "Azerbaijan",
+    "reproducibility",
+    "open science"
+  ],
+  "license": "mit",
+  "upload_type": "software",
+  "access_right": "open",
+  "language": "eng",
+  "notes": "Underlying district-level agricultural statistics originate from the State Statistical Committee of the Republic of Azerbaijan, documented in full in docs/DATA_DESCRIPTION.md. Code and derived/processed data in this repository are released under the MIT License.",
+  "version": "2.0.0"
+}
