@@ -6,14 +6,8 @@ The format is inspired by *Keep a Changelog* and follows semantic versioning whe
 
 ---
 
-## Version 2.0.0 (Food Policy Revision)
+## Version 2.0.0
 
-Manuscript retitled and repositioned for submission to Food Policy (previously
-prepared for a different journal under the title "Understanding Post-conflict
-Agricultural Systems Recovery"). This version reflects a substantial revision
-following two rounds of review (an editorial rejection on methodological
-grounds, addressed in full, and a subsequent detailed external methodological
-review).
 
 ### Added
 - `code/09_control_frontier_event_study.py`: interference-robust ("control-only
