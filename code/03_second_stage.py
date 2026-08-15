@@ -64,6 +64,10 @@ def fit_truncreg(y, X, compute_se=True):
 
 def build_second_stage_sample(dea_df, outlier_treatment='exclude_five'):
     d = data_prep.load_district_panel(exclude_aghdara=False, outlier_treatment=outlier_treatment)
+    dea_df = dea_df.drop(columns=['cost_milk', 'profitability'], errors='ignore')  # BUGFIX: dea_df already
+    # carries pre-outlier-treatment cost_milk/profitability from 00_data_prep's default load; without dropping
+    # these first, the merge below silently (or, on newer pandas, fatally) collides on column names and the
+    # outlier-treatment argument to this function is never actually applied.
     m = dea_df.merge(d[['region', 'year', 'cost_milk', 'profitability']], on=['region', 'year'], how='left')
     m['cattle_per1000'] = m['cows_heads'] / 1000.0
     m['fodder_per100'] = m['fodder_sown_area_ha'] / 100.0

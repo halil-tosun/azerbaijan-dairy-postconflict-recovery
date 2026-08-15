@@ -91,6 +91,26 @@ def silverman_bw(theta):
     return 0.9 * A * (len(refl)) ** (-1 / 5)
 
 
+DEGENERATE_THETA_CEILING = 5.0
+# BUGFIX (identified during Food Policy revision): for DMUs that are exactly on the raw VRS
+# frontier (theta_hat == 1), the smoothed reflected-kernel bootstrap occasionally perturbs the
+# pseudo reference technology into a configuration for which the input-oriented LP has no
+# economically meaningful finite solution close to 1; scipy/HiGHS then returns a numerically
+# "successful" but degenerate solution (observed: exactly 1e6, the effective unbounded-variable
+# ceiling) rather than failing outright. Left unfiltered, this either (a) occasionally produces
+# NaN when the LP is genuinely infeasible, silently dropping the district-year from every
+# downstream table (this happened to Sabirabad 2009 and Aghjabadi 2023 in the original release
+# of this script), or (b) when it does "succeed", corrupts the bootstrap mean with an outlier of
+# order 1e6, which — undetected — would corrupt the bias correction for that unit. Both failure
+# modes are specific to the small number of DMUs with theta_hat == 1 in a given annual
+# cross-section; no other district-year is affected (theta_hat < 1 units never trigger this
+# reflection pathology). We treat any bootstrap replicate exceeding DEGENERATE_THETA_CEILING as a
+# failed draw (on identical grounds to a non-converged LP) and exclude it from the bias-correction
+# mean via nanmean, preserving the mean-based Simar & Wilson (1998, 2000) procedure exactly as
+# specified for all non-degenerate replicates and for the ~99.9% of district-years unaffected by
+# this boundary condition.
+
+
 def bootstrap_bias_correct(X, Y, theta_hat, B=B_REPS, vrs=True, seed=0):
     rng = np.random.default_rng(seed)
     n = len(theta_hat)
@@ -102,9 +122,13 @@ def bootstrap_bias_correct(X, Y, theta_hat, B=B_REPS, vrs=True, seed=0):
         draw = np.where(draw > 1, 2 - draw, draw)
         draw = np.clip(draw, 1e-6, None)
         Xpseudo = X * (theta_hat / draw)[:, None]
-        boot[b, :] = dea_input_oriented_ref(X, Y, Xpseudo, Y, vrs=vrs)
-    bias = boot.mean(axis=0) - theta_hat
-    return np.clip(theta_hat - bias, 0, 1)
+        rep = dea_input_oriented_ref(X, Y, Xpseudo, Y, vrs=vrs)
+        rep = np.where(rep > DEGENERATE_THETA_CEILING, np.nan, rep)
+        boot[b, :] = rep
+    n_degenerate = np.isnan(boot).sum(axis=0)
+    bias = np.nanmean(boot, axis=0) - theta_hat
+    theta_bc = np.clip(theta_hat - bias, 0, 1)
+    return theta_bc, n_degenerate
 
 
 def run(seed_base=1000):
@@ -117,11 +141,16 @@ def run(seed_base=1000):
         Y = sub[['milk_production_tons']].values.astype(float)
         vrs_raw = dea_input_oriented(X, Y, vrs=True)
         crs_raw = dea_input_oriented(X, Y, vrs=False)
-        vrs_bc = bootstrap_bias_correct(X, Y, vrs_raw, vrs=True, seed=seed_base + int(yr))
-        crs_bc = bootstrap_bias_correct(X, Y, crs_raw, vrs=False, seed=seed_base + 500 + int(yr))
+        vrs_bc, vrs_ndeg = bootstrap_bias_correct(X, Y, vrs_raw, vrs=True, seed=seed_base + int(yr))
+        crs_bc, crs_ndeg = bootstrap_bias_correct(X, Y, crs_raw, vrs=False, seed=seed_base + 500 + int(yr))
         r = sub.copy()
         r['vrs_raw'] = vrs_raw; r['crs_raw'] = crs_raw
         r['vrs_bc'] = vrs_bc; r['crs_bc'] = crs_bc
+        r['vrs_bootstrap_degenerate_draws'] = vrs_ndeg; r['crs_bootstrap_degenerate_draws'] = crs_ndeg
+        n_affected = int((vrs_ndeg > 0).sum())
+        if n_affected:
+            print(f'    [note] {n_affected} district(s) in {yr} had boundary-case (theta_hat=1) '
+                  f'bootstrap draws filtered per DEGENERATE_THETA_CEILING; see script docstring.', flush=True)
         results.append(r)
         print(f'  year {yr}: done ({time.time()-t0:.0f}s elapsed)', flush=True)
 

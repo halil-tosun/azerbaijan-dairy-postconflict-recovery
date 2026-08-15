@@ -1,0 +1,4 @@
+group,n,n_theta_gt1,share
+"Control districts, all years",1324,73,0.05513595166163142
+"Treated districts, pre-2020",154,51,0.33116883116883117
+"Treated districts, post-2020",36,15,0.4166666666666667

@@ -1,0 +1,16 @@
+variant,N,variable,coef,p_value
+full_sample_outliers_retained,820,Intercept,0.48607254754196855,0.0
+full_sample_outliers_retained,820,Cattle(1000 head),-0.007340672833994343,0.0
+full_sample_outliers_retained,820,Fodder(100ha),0.0006061133898827321,1.3100631690576847e-14
+full_sample_outliers_retained,820,Cost(AZN/centner),-7.987678599565545e-05,0.11141424462557814
+full_sample_outliers_retained,820,Profitability(%),-0.00014321705242340482,0.11741263196873475
+excluding_gobustan_2013_only,819,Intercept,0.48312625018632394,0.0
+excluding_gobustan_2013_only,819,Cattle(1000 head),-0.007337651788885064,0.0
+excluding_gobustan_2013_only,819,Fodder(100ha),0.0006083835033513102,1.3100631690576847e-14
+excluding_gobustan_2013_only,819,Cost(AZN/centner),-1.2564790449132078e-05,0.9466349649877486
+excluding_gobustan_2013_only,819,Profitability(%),-0.00013646541936519372,0.14355948592613332
+excluding_all_five_extreme,816,Intercept,0.4904725506750731,0.0
+excluding_all_five_extreme,816,Cattle(1000 head),-0.0072211939822184445,0.0
+excluding_all_five_extreme,816,Fodder(100ha),0.0005910979824286081,1.13464793116691e-13
+excluding_all_five_extreme,816,Cost(AZN/centner),-0.00023765338872574343,0.38186796005209445
+excluding_all_five_extreme,816,Profitability(%),-0.00014760647594546302,0.11805001761071976

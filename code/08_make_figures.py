@@ -1,115 +1,138 @@
 """
 08_make_figures.py
 ====================
-Generates all 5 figures from the CSV outputs produced by scripts 01-05.
-Run after run_all.py (or after the relevant individual scripts).
+Generates all main-text and Supporting Information figures from the CSV
+outputs produced by scripts 01, 04, and 09. Run after run_all.py (or after
+the relevant individual scripts).
+
+This script's plotting parameters (figure size, colors, 300 DPI) are the
+exact ones used to produce the figures embedded in the submitted manuscript
+and Supporting Information; it is the single authoritative figure-generation
+script for this replication package.
 """
 import pandas as pd
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from scipy.stats import t as tdist
 import os
 
 OUT_DIR = os.path.join(os.path.dirname(__file__), '..', 'output')
 FIG_DIR = os.path.join(os.path.dirname(__file__), '..', 'figures')
 os.makedirs(FIG_DIR, exist_ok=True)
 
+plt.rcParams.update({'font.size': 10, 'font.family': 'DejaVu Sans'})
 
-def figure2_dea():
-    fig1 = pd.read_csv(os.path.join(OUT_DIR, 'figure2_annual_efficiency.csv'))
-    plt.figure(figsize=(9, 5.5))
-    plt.plot(fig1['year'], fig1['vrs_bc'], marker='o', color='#1f77b4', linewidth=2, markersize=6)
-    plt.xlabel('Year', fontsize=12)
-    plt.ylabel('Mean bootstrap bias-corrected DEA efficiency', fontsize=12)
-    plt.grid(True, alpha=0.3)
+
+def figure2_annual_efficiency():
+    """Figure 2 (main text): annual mean bootstrap-corrected DEA efficiency."""
+    fig2 = pd.read_csv(os.path.join(OUT_DIR, 'figure2_annual_efficiency.csv'))
+    fig, ax = plt.subplots(figsize=(6.5, 4))
+    ax.plot(fig2['year'], fig2['vrs_bc'], marker='o', markersize=3, linewidth=1.5, color='#1b4965')
+    ax.set_xlabel('Year')
+    ax.set_ylabel('Mean bootstrap-corrected DEA technical efficiency')
+    ax.set_ylim(0, 1)
+    ax.grid(alpha=0.3)
     plt.tight_layout()
-    plt.savefig(os.path.join(FIG_DIR, 'Figure2_DEA_Annual_Efficiency.png'), dpi=600)
+    plt.savefig(os.path.join(FIG_DIR, 'Figure2_Annual_Efficiency.png'), dpi=300)
     plt.close()
-    print('Figure 1 saved')
+    print('Figure 2 saved as Figure2_Annual_Efficiency.png')
 
 
-def figure3_malmquist_ts():
-    ts = pd.read_csv(os.path.join(OUT_DIR, 'figure3_regional_tfp_timeseries.csv'))
-    pivot = ts.pivot(index='year', columns='region', values='cum_TFP')
-    pivot.columns = [c.replace(' economic region', '').replace('Nakhchivan Autonomous Republic', 'Nakhchivan A.R.') for c in pivot.columns]
-    pivot = pivot.reindex(sorted(pivot.columns), axis=1)
-    plt.figure(figsize=(10, 6.2))
-    colors = plt.cm.tab20(range(len(pivot.columns)))
-    for i, col in enumerate(pivot.columns):
-        plt.plot(pivot.index, pivot[col], label=col, linewidth=1.6, color=colors[i])
-    plt.xlabel('Year', fontsize=12)
-    plt.ylabel('Cumulative TFP Index (2000=1)', fontsize=12)
-    plt.legend(loc='upper left', fontsize=7.5, ncol=2, frameon=True)
-    plt.grid(True, alpha=0.3)
+def figure3_regional_tfp_timeseries():
+    """Figure 3 (main text): regional cumulative Malmquist TFP indices."""
+    fig3 = pd.read_csv(os.path.join(OUT_DIR, 'figure3_regional_tfp_timeseries.csv'))
+    fig, ax = plt.subplots(figsize=(7, 5))
+    regions = fig3['region'].unique()
+    cmap = plt.cm.tab20(np.linspace(0, 1, len(regions)))
+    for i, r in enumerate(regions):
+        sub = fig3[fig3['region'] == r].sort_values('year')
+        label = r.replace(' economic region', '').replace(' Autonomous Republic', ' A.R.')
+        ax.plot(sub['year'], sub['cum_TFP'], linewidth=1.3, color=cmap[i], label=label)
+    ax.axhline(1.0, color='gray', linestyle=':', linewidth=1)
+    ax.set_xlabel('Year')
+    ax.set_ylabel('Cumulative Malmquist TFP index (2000 = 1)')
+    ax.legend(fontsize=6.5, ncol=2, loc='upper left', framealpha=0.9)
+    ax.grid(alpha=0.3)
     plt.tight_layout()
-    plt.savefig(os.path.join(FIG_DIR, 'Figure3_Regional_TFP_TimeSeries.png'), dpi=600)
+    plt.savefig(os.path.join(FIG_DIR, 'Figure3_Regional_TFP_TimeSeries.png'), dpi=300)
     plt.close()
-    print('Figure 2 saved')
+    print('Figure 3 saved as Figure3_Regional_TFP_TimeSeries.png')
 
 
-def figure4_decomp():
-    t5 = pd.read_csv(os.path.join(OUT_DIR, 'table5_summary.csv')).sort_values('cum_TFP_pct', ascending=False)
-    labels = [r.replace(' economic region', '').replace('Nakhchivan Autonomous Republic', 'Nakhchivan A.R.') for r in t5['region']]
-    x = np.arange(len(labels)); width = 0.27
-    fig, ax = plt.subplots(figsize=(11, 5.5))
-    ax.bar(x - width, t5['cum_TFP_pct'], width, label='TFP (cumulative, %)', color='#1a3a5c')
-    ax.bar(x, t5['cum_TC_pct'], width, label='Technological Change, TC (%)', color='#2e86ab')
-    ax.bar(x + width, t5['cum_TEC_pct'], width, label='Technical Efficiency Change, TEC (%)', color='#d9622b')
-    for i, v in enumerate(t5['cum_TFP_pct']):
-        ax.text(i - width, v + (8 if v >= 0 else -14), f"{v:+.0f}", ha='center', fontsize=8, fontweight='bold', color='#1a3a5c')
-    ax.set_xticks(x); ax.set_xticklabels(labels, rotation=40, ha='right', fontsize=9)
-    ax.set_ylabel('Cumulative change, 2000-2024 (%)', fontsize=12)
-    ax.axhline(0, color='black', linewidth=0.8)
-    ax.legend(loc='upper right', fontsize=9)
-    ax.grid(True, alpha=0.25, axis='y')
+def figure4_event_study():
+    """Figure 4 (main text): event-study coefficients, control-frontier
+    (primary) and pooled-frontier (secondary) dependent variables."""
+    cf = pd.read_csv(os.path.join(OUT_DIR, 'figure6_event_study_control_frontier.csv')).sort_values('event_time')
+    pf = pd.read_csv(os.path.join(OUT_DIR, 's10_event_study_pooled_frontier.csv')).sort_values('event_time')
+
+    fig, axes = plt.subplots(1, 2, figsize=(10.5, 4.5), sharey=True)
+    for ax, df, title in [(axes[0], cf, 'Control-frontier score (primary)'),
+                           (axes[1], pf, 'Pooled-frontier score (secondary)')]:
+        crit = tdist.ppf(0.975, 1418)
+        ci = crit * df['se_clustered']
+        ax.errorbar(df['event_time'], df['coef'], yerr=ci, fmt='o', markersize=4,
+                     capsize=3, color='#1b4965', ecolor='#5fa8d3', linewidth=1)
+        ax.axhline(0, color='black', linewidth=0.8)
+        ax.axvline(-0.5, color='red', linestyle='--', linewidth=1, alpha=0.6)
+        ax.set_xlabel('Event time (years since 2020 reintegration)')
+        ax.set_title(title, fontsize=10)
+        ax.grid(alpha=0.3)
+    axes[0].set_ylabel('Coefficient rel. to k=\u22121\n(95% CI, clustered SE)')
+    fig.subplots_adjust(left=0.11, right=0.98, top=0.92, bottom=0.13, wspace=0.08)
+    plt.savefig(os.path.join(FIG_DIR, 'Figure4_EventStudy.png'), dpi=300)
+    plt.close()
+    print('Figure 4 saved as Figure4_EventStudy.png')
+
+
+def figures1_2_regional_decomposition():
+    """Figure S1 (Supporting Information): regional TC/TEC decomposition."""
+    t5 = pd.read_csv(os.path.join(OUT_DIR, 'table5_summary.csv')).sort_values('cum_TFP_pct', ascending=True)
+    fig, ax = plt.subplots(figsize=(7, 5.5))
+    y = range(len(t5))
+    labels = [r.replace(' economic region', '').replace(' Autonomous Republic', ' A.R.') for r in t5['region']]
+    ax.barh(y, t5['cum_TC_pct'], color='#1b4965', label='Technological change (TC)', height=0.4, align='edge')
+    ax.barh([p + 0.4 for p in y], t5['cum_TEC_pct'], color='#bc4749',
+            label='Technical efficiency change (TEC)', height=0.4, align='edge')
+    ax.set_yticks([p + 0.4 for p in y])
+    ax.set_yticklabels(labels, fontsize=8)
+    ax.axvline(0, color='black', linewidth=0.8)
+    ax.set_xlabel('Cumulative change, 2000\u20132024 (%)')
+    ax.legend(fontsize=8, loc='lower right')
+    ax.grid(alpha=0.3, axis='x')
     plt.tight_layout()
-    plt.savefig(os.path.join(FIG_DIR, 'Figure4_Regional_Decomposition.png'), dpi=600)
+    plt.savefig(os.path.join(FIG_DIR, 'FigureS1_Regional_Decomposition.png'), dpi=300)
     plt.close()
-    print('Figure 3 saved')
+    print('Figure S1 (SI) saved as FigureS1_Regional_Decomposition.png')
 
 
-def figure5_matrix():
+def figures2_technology_efficiency_matrix():
+    """Figure S2 (Supporting Information): regional technology-efficiency matrix."""
     t5 = pd.read_csv(os.path.join(OUT_DIR, 'table5_summary.csv'))
-    labels = [r.replace(' economic region', '').replace('Nakhchivan Autonomous Republic', 'Nakhchivan A.R.') for r in t5['region']]
-    x = t5['cum_TEC_pct'].values; y = t5['cum_TC_pct'].values
-    size = np.abs(t5['cum_TFP_pct'].values); color = t5['cum_TFP_pct'].values
-    fig, ax = plt.subplots(figsize=(9.5, 8))
-    sc = ax.scatter(x, y, s=size * 3.2 + 80, c=color, cmap='RdYlBu_r', edgecolors='black', linewidths=0.7, alpha=0.9, vmin=-100, vmax=300)
-    for i, lab in enumerate(labels):
-        ax.annotate(lab, (x[i], y[i]), fontsize=8, fontweight='bold', ha='center', va='center')
-    lims = [min(x.min(), y.min()) - 20, max(x.max(), y.max()) + 20]
-    ax.plot(lims, lims, '--', color='gray', linewidth=1.2)
-    ax.axhline(0, color='black', linewidth=0.8); ax.axvline(0, color='black', linewidth=0.8)
-    ax.set_xlabel('Technical Efficiency Change, TEC (cumulative %, 2000-2024)', fontsize=11)
-    ax.set_ylabel('Technological Change, TC (cumulative %, 2000-2024)', fontsize=11)
-    cb = plt.colorbar(sc, ax=ax); cb.set_label('Cumulative TFP growth (%)', fontsize=10)
-    ax.grid(True, alpha=0.25)
-    plt.tight_layout()
-    plt.savefig(os.path.join(FIG_DIR, 'Figure5_Technology_Efficiency_Matrix.png'), dpi=600)
-    plt.close()
-    print('Figure 4 saved')
-
-
-def figure6_eventstudy():
-    ev = pd.read_csv(os.path.join(OUT_DIR, 'figure6_event_study.csv'))
-    fig, ax = plt.subplots(figsize=(9, 5.5))
-    x = ev['event_time'].values; y = ev['coef'].values; ci = 1.96 * ev['se'].values
-    ax.errorbar(x, y, yerr=ci, fmt='o-', color='#1a3a5c', ecolor='#7fa8c9', capsize=3, linewidth=1.8, markersize=5)
+    fig, ax = plt.subplots(figsize=(6.5, 5.5))
+    ax.scatter(t5['cum_TC_pct'], t5['cum_TEC_pct'], s=40, color='#1b4965', zorder=3)
+    for _, row in t5.iterrows():
+        label = row['region'].replace(' economic region', '').replace(' Autonomous Republic', ' A.R.')
+        ax.annotate(label, (row['cum_TC_pct'], row['cum_TEC_pct']), fontsize=6.5,
+                    xytext=(4, 3), textcoords='offset points')
     ax.axhline(0, color='gray', linewidth=0.8)
-    ax.axvline(-0.5, color='red', linestyle='--', linewidth=1.2, label='2020 reintegration')
-    ax.set_xlabel('Years relative to reintegration (2020 = 0)', fontsize=12)
-    ax.set_ylabel('Efficiency gap vs. control districts\n(relative to event time = -1)', fontsize=12)
-    ax.legend(loc='upper left', fontsize=10)
-    ax.grid(True, alpha=0.25)
+    ax.axvline(0, color='gray', linewidth=0.8)
+    ax.set_xlabel('Cumulative technological change, TC (%)')
+    ax.set_ylabel('Cumulative technical efficiency change, TEC (%)')
+    ax.grid(alpha=0.3)
     plt.tight_layout()
-    plt.savefig(os.path.join(FIG_DIR, 'Figure6_EventStudy.png'), dpi=600)
+    plt.savefig(os.path.join(FIG_DIR, 'FigureS2_Technology_Efficiency_Matrix.png'), dpi=300)
     plt.close()
-    print('Figure 5 saved')
+    print('Figure S2 (SI) saved as FigureS2_Technology_Efficiency_Matrix.png')
 
 
 def run():
-    figure2_dea(); figure3_malmquist_ts(); figure4_decomp(); figure5_matrix(); figure6_eventstudy()
+    figure2_annual_efficiency()
+    figure3_regional_tfp_timeseries()
+    figure4_event_study()
+    figures1_2_regional_decomposition()
+    figures2_technology_efficiency_matrix()
 
 
 if __name__ == '__main__':

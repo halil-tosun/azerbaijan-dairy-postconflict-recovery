@@ -1,0 +1,9 @@
+Variable,Definition,Unit,Role,Source
+Milk production,Annual milk output,Tons,Output,SSC
+Dairy cattle stock,Dairy cattle inventory,Head,Input,SSC
+Fodder area,Fodder crop sown area,Hectares,Input,SSC
+Milk production cost,Average production cost,AZN per ton,Efficiency determinant,SSC
+Milk profitability,Profitability of milk production,Percent,Efficiency determinant,SSC
+Labor input*,Total labor hours,Hours,Robustness analysis,SSC
+Agricultural capital*,Main production funds,AZN,Robustness analysis,SSC
+Agricultural land*,Land in ownership/use,Hectares,Robustness analysis,SSC

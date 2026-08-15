@@ -1,0 +1,3 @@
+sample,N_districts,N_district_years,mean,sd
+Full sample,67,1523,0.42051291471252733,0.17211402636670542
+Balanced subpanel (25 years each),47,1175,0.4391161515493734,0.15976254479036733

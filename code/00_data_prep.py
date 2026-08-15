@@ -180,9 +180,27 @@ def build_augmented_panel():
 
 
 if __name__ == '__main__':
-    d = dea_analysis_sample(load_district_panel(exclude_aghdara=False))
+    d_full = load_district_panel(exclude_aghdara=False)
+    d = dea_analysis_sample(d_full)
     print('Districts:', d['region'].nunique(), '| N (production panel):', len(d))
     d.to_csv(os.path.join(OUT_DIR, 'analysis_panel_districts.csv'), index=False)
+
+    # Table 1 sample-accounting check (Results Section 3.1): verify that the
+    # complete-case production panel (fodder-crop sown area's own coverage)
+    # is a strict subset of milk production's and cattle stock's individual
+    # coverage, so the N=1,648 vs N=1,523 figures in Table 1 are explained by
+    # a single binding variable (fodder area) rather than an inconsistency.
+    milk_ok = d_full['milk_production_tons'].notna()
+    cattle_ok = d_full['cows_heads'].notna()
+    fodder_ok = d_full['fodder_sown_area_ha'].notna()
+    n_exceptions = int((fodder_ok & ~(milk_ok & cattle_ok)).sum())
+    print(f'Table 1 sample check: milk N={int(milk_ok.sum())}, cattle N={int(cattle_ok.sum())}, '
+          f'fodder N={int(fodder_ok.sum())}, district-years with fodder present but '
+          f'milk/cattle missing (should be 0): {n_exceptions}')
+    assert n_exceptions == 0, (
+        'Table 1 subset-relationship claim violated -- update the manuscript text '
+        'in Results Section 3.1 before proceeding.'
+    )
 
     regions = load_region_panel()
     print('Economic regions:', regions['region'].nunique(), '| obs:', len(regions))

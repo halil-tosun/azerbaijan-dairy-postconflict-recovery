@@ -2,86 +2,137 @@
 
 ## Overview
 
-This document describes the datasets included in the replication package for:
-
-**Technical Efficiency, Productivity Growth, and the Effects of Territorial Reintegration: Evidence from Azerbaijan's Dairy Sector, 2000–2024**
-
-Author: **Halil Tosun, Ph.D.**
-
----
-
-## Data Sources
-
-The empirical analyses are based on official agricultural statistics for Azerbaijan compiled into panel datasets for efficiency, productivity, and policy evaluation.
-
-The repository separates raw source files from analytical panel datasets.
+This study analyzes official district-level agricultural statistics for
+the Republic of Azerbaijan, 2000-2024. The repository separates three
+tiers of data: **raw** source files as obtained from the original
+statistical publication (`data/official_stats_raw/`), **harmonized
+analytical panels** built from them (`data/original_panel/`), and
+**generated output** (`output/`), which is not raw data at all but the
+product of the pipeline in `code/` and is documented separately below.
 
 ---
 
-## Repository Structure
+## `data/official_stats_raw/`
 
-```text
-data/
-├── official_stats_raw/
-│   ├── CSV and XLS files obtained from official statistical sources
-│   └── Used as the original source data
-│
-└── original_panel/
-    ├── azerbaijan_dairy_panel_long.csv
-    ├── azerbaijan_dairy_panel_NATIONAL.csv
-    ├── azerbaijan_dairy_panel_WIDE_districts.csv
-    ├── azerbaijan_dairy_panel_WIDE_economic_regions.csv
-    ├── azerbaijan_DISTRICTS_final_efficiency_outputs.csv
-    └── azerbaijan_national_milk_yield_per_cow-1.csv
-```
+Original statistical tables (CSV and XLS pairs) as published by the
+State Statistical Committee of the Republic of Azerbaijan. **No
+modifications should be made to these files.** They are the primary
+source for every downstream analytical dataset.
 
 ---
 
-## Raw Data
+## `data/original_panel/`
 
-The **official_stats_raw/** directory contains the original statistical tables in both CSV and XLS formats. These files constitute the primary data sources used to construct the analytical datasets.
+Harmonized long- and wide-format panels built from the raw files above.
+`azerbaijan_dairy_panel_long.csv` is the primary source file consumed by
+`code/00_data_prep.py`; the wide-format and national-aggregate files are
+provided for direct inspection and are not themselves read by the
+pipeline.
 
-No modifications should be made to these files.
+### `azerbaijan_dairy_panel_long.csv` (primary source file)
+
+Long format: one row per (region, year, variable). 17,864 rows.
+
+| Column | Description |
+|---|---|
+| `region` | District, city, economic-region, or national-total name |
+| `year` | Calendar year, 2000-2024 |
+| `variable` | Variable name (see table below) |
+| `value` | Numeric value, in the variable's native unit |
+| `region_type` | One of `district`, `city`, `economic_region`, `national_total` |
+
+### Variables (`variable` column values)
+
+| Variable | Unit | Role in analysis |
+|---|---|---|
+| `milk_production_tons` | Tons | Output (DEA/SFA) |
+| `cows_heads` | Head | Input (DEA/SFA) -- "dairy cattle stock" in the manuscript |
+| `cows_dairy_buffaloes_stock_heads` | Head | Not used in the baseline model (buffaloes included; cross-checked against `cows_heads` during data preparation) |
+| `fodder_sown_area_ha` | Hectares | Input (DEA/SFA) -- "fodder-crop sown area" |
+| `cost_price_per_centner_milk_enterprises_manat` | AZN/centner | Second-stage covariate (enterprise subsector) |
+| `cost_price_per_centner_milk_private_manat` | AZN/centner | Second-stage covariate (private-farm subsector) |
+| `selling_price_per_centner_milk_enterprises_manat` | AZN/centner | Used with cost price to construct `profitability` (enterprise subsector) |
+| `selling_price_per_centner_milk_private_manat` | AZN/centner | Used with cost price to construct `profitability` (private-farm subsector) |
+| `profitability_milk_enterprises_pct` | Percent | Second-stage covariate (enterprise subsector, where reported directly) |
+| `profitability_milk_private_pct` | Percent | Second-stage covariate (private-farm subsector, where reported directly) |
+| `labour_hours_per_centner_milk_enterprises` | Hours/centner | Labor-augmented sensitivity check only (Section 3.6, Table 9) |
+
+Enterprise- and private-farm-subsector cost price and profitability are
+harmonized into single district-year series (`cost_milk`,
+`profitability`) during data preparation (`00_data_prep.py`), following
+the procedure documented in the manuscript, Section 2.2. Capital and
+land variables used only in the Table 9 sensitivity checks (Section 3.6)
+are documented in SI Tables S11-S12 and are not part of this primary
+long-format file.
 
 ---
 
-## Analytical Data
+## `output/*.csv` and `output/*.npz` (Generated, Not Raw Input)
 
-The **original_panel/** directory contains harmonized datasets used throughout the empirical analyses.
-
-These datasets provide the basis for:
-
-- Data preparation
-- DEA estimation
-- SFA estimation
-- Second-stage analysis
-- Malmquist productivity decomposition
-- Event-study estimation
-- Robustness analyses
-- Figure generation
+Every file in `output/` (44 CSV files as of this release) is
+**generated** by the pipeline in `code/`, not raw or manually entered
+data; see `docs/CODEBOOK.md` for the full script-to-output
+correspondence. They are committed to this repository so the package is
+immediately inspectable without first running the pipeline, but running
+`code/run_all.py` from a cleared `output/` directory regenerates every
+one of them from the source files documented above -- this was verified
+prior to release (see `docs/REPRODUCIBILITY_CHECKLIST.md`).
 
 ---
 
-## Temporal Coverage
+## `figures/*.png` (Generated)
 
-2000–2024
-
----
-
-## Geographic Coverage
-
-Republic of Azerbaijan, including district, economic-region, and national aggregation levels where applicable.
+Five figures (Figures 2-4, main text; Figures S1-S2, Supporting
+Information), generated by `code/08_make_figures.py` from the `output/`
+CSVs listed above, at 300 DPI. Regenerating them from a cleared
+`figures/` directory was independently verified to produce
+pixel-identical (MD5 checksum) output.
 
 ---
 
-## Reproducibility Notes
+## `graphical_abstract/Graphical_Abstract.png`
 
-- Raw data are preserved separately from analytical datasets.
-- All empirical results can be reproduced using the supplied Python scripts.
-- Analytical outputs are generated automatically by running the replication workflow.
+The manuscript's graphical abstract. Not generated by this pipeline;
+provided as a static asset for completeness of the reproducibility
+package.
 
 ---
 
-## Citation
+## Temporal and Geographic Coverage
 
-If these data are used, please cite both the associated journal article and the archived GitHub/Zenodo repository.
+- **Temporal:** 2000-2024 (25 years).
+- **Geographic:** 67 administrative districts of the Republic of
+  Azerbaijan, aggregated in places to 13 economic regions
+  (`data/original_panel/azerbaijan_dairy_panel_WIDE_economic_regions.csv`)
+  and to the national total
+  (`data/original_panel/azerbaijan_dairy_panel_NATIONAL.csv`).
+
+---
+
+## Known Data-Structure Feature: N=1,648 vs. N=1,523 (Table 1)
+
+Milk production and dairy cattle stock are each individually recorded
+for 1,648 district-years, while fodder-crop sown area -- the more
+restrictive of the three production variables -- is recorded for 1,523.
+This is not a data-quality problem: every district-year with non-missing
+fodder-area data also has non-missing milk production and cattle stock
+data, with zero exceptions (verified by a runtime assertion in
+`00_data_prep.py`; see `docs/CODEBOOK.md`, "Table 1 Sample-Accounting
+Check"). The 1,523-observation panel used throughout the paper is
+therefore exactly the set of district-years for which fodder-crop sown
+area is available, and is a strict subset of milk/cattle's own coverage.
+
+---
+
+## Data Access and Terms of Use
+
+- The underlying statistics originate from the State Statistical
+  Committee of the Republic of Azerbaijan and are used here as publicly
+  compiled official statistics for research purposes.
+- FAOSTAT figures (protein-supply context cited in the manuscript's
+  Introduction) are publicly available at no cost via
+  `https://www.fao.org/faostat/en/#data/FBS` and require no special
+  access permissions.
+- No individually identifying or commercially sensitive data are
+  included in this repository; all figures are district- or
+  region-aggregated official statistics.
