@@ -228,16 +228,26 @@ district-level statistics and their own terms of use.
 ## Contact
 
 **Halil Tosun**
+
 Department of Animal Science, School of Agricultural and Food Sciences,
 ADA University, Baku, Azerbaijan
+
 ORCID: https://orcid.org/0000-0001-5117-0390
+
 Email: halilibrahimtosun@gmail.com
 
 **Matteo Vittuari**
+
 Department of Agricultural and Food Sciences (DISTAL), University of
-Bologna, Italy; School of Agricultural and Food Sciences, ADA
+Bologna, Italy
+
+School of Agricultural and Food Sciences, ADA
 University, Baku, Azerbaijan
 
-**Zenodo DOI:** [DOI will be added once assigned upon archival release]
+ORCID: https://orcid.org/0000-0003-4327-1575
+
+Email: mvittuari@ada.edu.az
+
+**Zenodo DOI:** https://doi.org/10.5281/zenodo.21380280
 
 **Version:** 2.0.0
