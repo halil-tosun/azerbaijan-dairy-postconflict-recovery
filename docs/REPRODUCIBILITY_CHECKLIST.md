@@ -30,7 +30,7 @@ control-frontier event-study evaluation of territorial reintegration)
 | Every reported statistic independently re-verified against the manuscript prior to release | Yes |
 | Fixed random seed for every stochastic (bootstrap) component | Yes |
 | Open repository planned | Yes |
-| Zenodo DOI | Pending -- will be added upon archival release |
+| Zenodo DOI | https://doi.org/10.5281/zenodo.21380280 |
 | Manuscript DOI | Pending -- will be added once available |
 
 ---
@@ -178,6 +178,4 @@ underlying study rather than any specific journal submission, so that
 it remains fully valid regardless of the eventual publication venue,
 manuscript title, or peer-review outcome.
 
-Once archived, this release will be assigned a permanent Zenodo DOI,
-which will be added to this document, to `README.md`, `CITATION.cff`,
-and `.zenodo.json`.
+ Zenodo DOI: https://doi.org/10.5281/zenodo.21380280
